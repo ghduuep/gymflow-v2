@@ -9,4 +9,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 
-Schedule::command('app:update-expired-subscriptions')->dailyAt('01:00');
+Schedule::command('app:update-expired-subscriptions')->daily()->withoutOverlapping();
+Schedule::command('app:cancel-overdue-subscriptions')->daily()->withoutOverlapping();
