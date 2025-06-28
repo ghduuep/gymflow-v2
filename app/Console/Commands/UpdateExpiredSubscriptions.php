@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Enums\SubscriptionStatus;
+use App\Models\Subscription;
 use Illuminate\Console\Command;
+use Illuminate\Support\Carbon;
 
 class UpdateExpiredSubscriptions extends Command
 {
@@ -27,22 +30,23 @@ class UpdateExpiredSubscriptions extends Command
     {
         $this->info('A procurar por matrículas expiradas...');
 
-        $expiredSubscriptions = Subscription::where('status', SubscriptionStatus::ACTIVE)
-        ->where('end_date', '<', Carbon::now())
-        ->get();
+        $count = 0;
+        
+        Subscription::where('status', SubscriptionStatus::ACTIVE)
+            ->where('end_date', '<', Carbon::now())
+            ->chunkById(100, function ($subscriptions) use (&$count) {
+                $count += $subscriptions->count();
+                foreach ($subscriptions as $subscription) {
+                    $subscription->status = SubscriptionStatus::EXPIRED;
+                    $subscription->save();
+                }
+            });
 
-        if($expiredSubscriptions->isEmpty()) {
-            $this->info('Nenhuma matrícula expirada encontrada.');
+        if ($count === 0) {
+            $this->info('Nenhuma matrícula encontrada.');
             return;
         }
 
-        $this->info("Encontradas {$expiredSubscriptions->count()} matrículas para expirar.");
-
-        foreach($expiredSubscriptions as $subscription) {
-            $subscription->status = SubscriptionStatus::EXPIRED;
-            $subscription->save();
+        $this->info("{$count} matrículas foram atualizadas com sucesso.");
     }
-
-    $this->info('Matrículas atualizadas com sucesso.');
-}
 }

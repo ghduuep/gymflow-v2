@@ -24,7 +24,7 @@ class ExpenseController extends Controller
      */
     public function store(StoreExpenseRequest $request): JsonResponse
     {
-        $validatedData = $request->validate();
+        $validatedData = $request->validated();
         $expense = Expense::create($validatedData);
 
         return response()->json($expense, 201);
@@ -43,7 +43,7 @@ class ExpenseController extends Controller
      */
     public function update(UpdateExpenseRequest $request, Expense $expense): JsonResponse
     {
-        $validatedData = $request->validate();
+        $validatedData = $request->validated();
         $expense->update($validatedData);
 
         return response()->json($expense);

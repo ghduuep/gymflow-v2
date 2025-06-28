@@ -30,24 +30,7 @@ class SubscriptionController extends Controller
      */
     public function store(StoreSubscriptionRequest $request): JsonResponse
     {
-        $validatedData = $request->validated();
-
-        $plan = Plan::find($validatedData['plan_id']);
-    
-        $startDate = isset($validatedData['start_date']) ? Carbon::parse($validatedData['start_date']) : Carbon::now();
-
-        $endDate = $startDate->copy()->addMonths($plan->duration_months);
-
-        $subscriptionData = array_merge($validatedData, [
-            'status' => SubscriptionStatus::PENDIND_PAYMENT,
-            'start_date' => $startDate,
-            'end_date' => $endDate,
-        ]);
-
-        $subscription = Subscription::create($validatedData);
-
-        $subscription->load(['student', 'plan']);
-
+        $subscription = $this->$subscriptionService->createSubscription($request->validated());
         return response()->json($subscription, 201);
     }
 
