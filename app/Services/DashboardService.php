@@ -26,12 +26,18 @@ class DashboardService
 
         $monthlyNetProfit = $monthlyRevenue - $monthlyExpenses;
 
+        $pendingTasks = Task::where('completed', false)
+        ->orderBy('priority', 'desc')
+        ->limit(5)
+        ->get();
+
         return [
             'active_students' => $activeStudents,
             'active_subscriptions' => $activeSubscription,
             'monthly_revenue' => (float) $monthlyRevenue,
             'monthly_expenses' => (float) $monthlyExpenses,
-            'monthly_net_profit' => (float) $monthlyNetProfit
+            'monthly_net_profit' => (float) $monthlyNetProfit,
+            'pendind_tasks' => $pendingTasks,
         ];
     }
 }
