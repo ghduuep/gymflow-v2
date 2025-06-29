@@ -31,7 +31,7 @@ class ManageExpiredSubscriptions extends Command
         $this->info('A procurar por matrículas expiradas...');
 
         
-        $expiredSubscriptions = Subscription::where('status', SubscriptionStatus::EXPIRED).get();
+        $expiredSubscriptions = Subscription::where('status', SubscriptionStatus::EXPIRED)->get();
 
         if($expiredSubscriptions->isEmpty()) {
             $this->info('Nenhuma matrícula expirada encontrada.');
@@ -50,6 +50,6 @@ class ManageExpiredSubscriptions extends Command
             }
         }
     
-        $this->info("{$count} matrículas foram atualizadas com sucesso e envio de links de renovação realizado.");
+        $this->info("As matrículas foram atualizadas com sucesso e envio de links de renovação realizado.");
     }
 }

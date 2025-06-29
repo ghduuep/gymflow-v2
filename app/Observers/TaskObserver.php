@@ -19,7 +19,7 @@ class TaskObserver
      */
     public function updated(Task $task): void
     {
-        Cache::forget('tasks_paginated');
+        Cache::forget('tasks.paginated');
         Cache::forget("tasks.{$task->id}");
     }
 
@@ -28,7 +28,7 @@ class TaskObserver
      */
     public function deleted(Task $task): void
     {
-        Cache::forget('tasks_paginated');
+        Cache::forget('tasks.paginated');
         Cache::forget("tasks.{$task->id}");
     }
 

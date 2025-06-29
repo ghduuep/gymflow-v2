@@ -11,7 +11,7 @@ class PaymentController extends Controller
         $this->paymentService->handleWebhook($request);
         return response()->json(['status' => 'ok']);
         } catch (\Exception $e) {
-            return response()->json(['error', $e->getMessage(), 400]);
+            return response()->json(['error', $e->getMessage()], 400);
         }
     }
 }

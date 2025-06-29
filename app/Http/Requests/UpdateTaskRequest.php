@@ -24,14 +24,7 @@ class UpdateTaskRequest extends FormRequest
         $taskId = $this->route('task')->id;
 
         return [
-            'name' => ['
-            sometimes',
-            'required',
-            'string',
-            'min:2',
-            'max:30', 
-            Rule::unique('tasks', 'name')->ignore($taskId)],
-
+            'name' => ['sometimes','required','string','min:2','max:30', Rule::unique('tasks', 'name')->ignore($taskId)],
             'description' => 'sometimes|required|string|max:50',
             'completed' => 'sometimes|required|boolean',
             'priority' => ['sometimes|required', Rule::enum(TaskPriority::class)],

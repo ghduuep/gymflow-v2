@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('cpf', 11)->unique();
             $table->string('phone', 9);
             $table->string('email')->nullable();
-            $table->string('adress')->nullable();
+            $table->string('address')->nullable();
             $table->date('birth_date')->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();

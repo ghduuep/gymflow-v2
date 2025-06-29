@@ -35,6 +35,15 @@ class FinancialReportService
 
         ->get();
 
+
+        return [
+            'monthly_revenue' => (float) $monthlyRevenue,
+            'monthly_expenses' => (float) $monthlyExpenses,
+            'monthly_net_profit' => (float) $monthlyNetProfit,
+            'profit_margin' => (float) $profitMargin,
+            'expenses_by_category' => $expensesByCategory,
+            'revenue_by_plan' => $revenueByPlan,
+        ];
     }
     
 }

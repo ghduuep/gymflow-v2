@@ -20,7 +20,7 @@ class PlanObserver
      */
     public function updated(Plan $plan): void
     {
-        Cache::forget('plans_paginated');
+        Cache::forget('plans.paginated');
         Cache::forget("plans.{$plan->id}");
     }
 
@@ -29,7 +29,7 @@ class PlanObserver
      */
     public function deleted(Plan $plan): void
     {
-        Cache::forget('plans_paginated');
+        Cache::forget('plans.paginated');
         Cache::forget("plans.{$plan->id}");
     }
 

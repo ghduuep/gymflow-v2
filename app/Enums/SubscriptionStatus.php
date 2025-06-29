@@ -1,3 +1,5 @@
+<?php
+
 namespace App\Enums;
 
 enum SubscriptionStatus: string
@@ -6,5 +8,5 @@ enum SubscriptionStatus: string
     case PAUSED = 'PAUSED';
     case EXPIRED = 'EXPIRED';
     case CANCELLED = 'CANCELLED';
-    case PENDIND_PAYMENT = 'PENDIND_PAYMENT';
+    case PENDING_PAYMENT = 'PENDING_PAYMENT';
 }

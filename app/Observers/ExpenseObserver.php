@@ -19,7 +19,7 @@ class ExpenseObserver
      */
     public function updated(Expense $expense): void
     {
-        Cache::forget('expenses_paginated');
+        Cache::forget('expenses.paginated');
         Cache::forget("expenses.{$expense->id}");
     }
 
@@ -28,7 +28,7 @@ class ExpenseObserver
      */
     public function deleted(Expense $expense): void
     {
-        Cache::forget('expenses_paginated');
+        Cache::forget('expenses.paginated');
         Cache::forget("expenses.{$expense->id}");
     }
 

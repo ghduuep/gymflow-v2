@@ -19,7 +19,7 @@ class StudentObserver
      */
     public function updated(Student $student): void
     {
-        Cache::forget('students_paginated');
+        Cache::forget('students.paginated');
         Cache::forget("students.{$student->id}");
     }
 
@@ -28,7 +28,7 @@ class StudentObserver
      */
     public function deleted(Student $student): void
     {
-        Cache::forget('students_paginated');
+        Cache::forget('students.paginated');
         Cache::forget("students.{$student->id}");
     }
 

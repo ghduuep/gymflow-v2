@@ -27,7 +27,7 @@ class StoreExpenseRequest extends FormRequest
             'name' => 'required|string|unique:expenses, name|min:2|max:30',
             'description' => 'nullable|string|max:50',
             'category' => ['required', Rule::enum(ExpenseCategory::class)],
-            'value' => 'required|decimal',
+            'value' => 'required|numeric',
             'paid' => 'required|boolean',
             'date' => 'required|date|'
         ];

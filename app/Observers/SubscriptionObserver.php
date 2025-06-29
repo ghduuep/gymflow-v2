@@ -19,7 +19,7 @@ class SubscriptionObserver
      */
     public function updated(Subscription $subscription): void
     {
-        Cache::forget('subscriptions_paginated');
+        Cache::forget('subscriptions.paginated');
         Cache::forget("subscriptions.{$subscription->id}");
     }
 
@@ -28,7 +28,7 @@ class SubscriptionObserver
      */
     public function deleted(Subscription $subscription): void
     {
-        Cache::forget('subscriptions_paginated');
+        Cache::forget('subscriptions.paginated');
         Cache::forget("subscriptions.{$subscription->id}");
     }
 

@@ -27,7 +27,7 @@ class UpdateExpenseRequest extends FormRequest
             'name' => ['sometimes|required|string|min:2|max:30', Rule::unique('expenses', 'name')->ignore($expenseId)],
             'description' => 'sometimes|nullable|string|max:50',
             'category' => ['sometimes|required', Rule::enum(ExpenseCategory::class)],
-            'value' => 'sometimes|required|decimal',
+            'value' => 'sometimes|required|numeric',
             'paid' => 'sometimes|required|boolean',
             'date' => 'sometimes|required|date|'
         ];

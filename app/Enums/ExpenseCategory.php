@@ -1,3 +1,5 @@
+<?php
+
 namespace App\Enums;
 
 enum ExpenseCategory: string
@@ -7,6 +9,6 @@ enum ExpenseCategory: string
     case MAINTENANCE = 'MAINTENANCE';
     case MARKETING = 'MARKETING';
     case BILLS = 'BILLS';
-    case SUPPLIES = 'SUPPLIES'
+    case SUPPLIES = 'SUPPLIES';
     case OTHERS = 'OTHERS';
 }

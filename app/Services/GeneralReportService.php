@@ -25,5 +25,15 @@ class GeneralReportService
         ->orderBy('subscriptions_count', 'desc')
         ->take(3)
         ->get();
+
+        return [
+            'all_students' => $allStudents,
+            'all_subscriptions' => $allSubscriptions,
+            'all_plans' => $allPlans,
+            'all_tasks' => $allTasks,
+            'subscription_by_status' => $subscriptionByStatus,
+            'tasks_by_completed' => $tasksByCompleted,
+            'most_popular_plans' => $mostPopularPlans,
+        ];
     }
 }

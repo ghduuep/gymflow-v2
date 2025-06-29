@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('subscription_id')->constrained('subscriptions')->onDelete('cascade');
             $table->decimal('value', 10, 2);
-            $table->string('status')->default(PaymentStatus::PENDIND->value);
+            $table->string('status')->default(PaymentStatus::PENDING->value);
             $table->string('payment_method')->nullable();
             $table->string('provider');
             $table->string('provider_payment_id')->nullable()->index();

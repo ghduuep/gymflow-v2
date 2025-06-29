@@ -26,8 +26,8 @@ class StripePaymentService implements PaymentGatewayInterface
                 'quantity' => 1,
             ]],
             'mode' => 'payment',
-            'success_url' => env('URL_SUCCESS_NEXTJS'),
-            'cancel_url' => env('URL_CANCEL_NEXTJS'),
+            'success_url' => config('URL_SUCCESS_NEXTJS'),
+            'cancel_url' => config('URL_CANCEL_NEXTJS'),
             'metadata' => [
                 'subscription_id' => $subscription->id,
             ],

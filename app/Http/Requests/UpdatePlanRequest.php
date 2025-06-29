@@ -34,7 +34,7 @@ class UpdatePlanRequest extends FormRequest
                 'max:30'
             ],
             'description' => 'sometimes|required|string|max:50',
-            'price' => 'sometimes|required|decimal',
+            'price' => 'sometimes|required|numeric',
             'duration_months' => 'sometimes|required|integer|min:1',
             'active' => 'sometimes|required|boolean',           
         ];

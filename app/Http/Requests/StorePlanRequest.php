@@ -24,7 +24,7 @@ class StorePlanRequest extends FormRequest
         return [
             'name' => 'required|string|unique:plans, name|min:2|max:30',
             'description' => 'required|string|max:50',
-            'price' => 'required|decimal',
+            'price' => 'required|numeric',
             'duration_months' => 'required|integer|min:1',
             'active' => 'required|boolean'
         ];
