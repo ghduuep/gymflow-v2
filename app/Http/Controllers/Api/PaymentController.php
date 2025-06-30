@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Interfaces\PaymentGatewayInterface;
+
 class PaymentController extends Controller
 {
     public function __construct(private PaymentGatewayInterface $paymentService)

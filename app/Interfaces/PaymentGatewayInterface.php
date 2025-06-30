@@ -4,6 +4,7 @@ namespace App\Interfaces;
 
 use App\Models\Payment;
 use App\Models\Subscription;
+use Illuminate\Http\Request;
 
 interface PaymentGatewayInterface
 {

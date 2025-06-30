@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Plan;
 use App\Http\Requests\StorePlanRequest;
 use Illuminate\Http\JsonResponse;
-use App\Http\Requests\UpdatedPlanRequest;
+use App\Http\Requests\UpdatePlanRequest;
 
 class PlanController extends Controller
 {
@@ -38,7 +38,7 @@ class PlanController extends Controller
      */
     public function show(Plan $plan): JsonResponse
     {
-        return response->json($plan);
+        return response()->json($plan);
     }
 
     /**
