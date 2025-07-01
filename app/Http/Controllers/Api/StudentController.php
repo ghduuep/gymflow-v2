@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
-use App\Http\Requests\UpdatedStudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
 use Illuminate\Http\JsonResponse;
 
 
@@ -39,7 +39,7 @@ class StudentController extends Controller
      */
     public function show(Student $student): JsonResponse
     {
-        return response->json($student);
+        return response()->json($student);
     }
 
     /**
@@ -57,7 +57,7 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Student $student): JsonResponse
+    public function destroy(Student $student)
     {
         $student->delete();
         return response()->noContent();

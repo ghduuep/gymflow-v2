@@ -32,7 +32,7 @@ class UpdateStudentRequest extends FormRequest
                 'required',
                 'string',
                 Rule::unique('students', 'cpf')->ignore($studentId),
-                'regex:/^\d{3}\.\d{3}\.\d{3}-\d{2}$/',
+                'size:11',
             ],
             'phone' => 'sometimes|nullable|string|regex:/^\d{10,11}$/',
             'email' => 'sometimes|nullable|email|max:255',

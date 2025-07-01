@@ -14,6 +14,7 @@ class Address extends Model
         'student_id',
         'street',
         'number',
+        'neighborhood',
         'complement',
         'city',
         'state',

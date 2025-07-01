@@ -18,7 +18,6 @@ class Student extends Model
         'cpf',
         'phone',
         'email',
-        'address',
         'birth_date',
         'active',
     ];

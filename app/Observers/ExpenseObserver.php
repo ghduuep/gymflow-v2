@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Expense;
+use Illuminate\Support\Facades\Cache;
 
 class ExpenseObserver
 {
