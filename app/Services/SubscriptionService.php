@@ -24,7 +24,7 @@ class SubscriptionService
         $endDate = $startDate->copy()->addMonths($plan->duration_months);
 
         $subscriptionData = array_merge($data, [
-            'status' => SubscriptionStatus::PENDIND_PAYMENT,
+            'status' => SubscriptionStatus::PENDING_PAYMENT,
             'start_date' => $startDate,
             'end_date' => $endDate,
         ]);

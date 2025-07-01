@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use App\Models\Expense;
 use App\Http\Requests\StoreExpenseRequest;
 use App\Http\Requests\UpdateExpenseRequest;
+use Illuminate\Support\Facades\Cache;
 
 
 class ExpenseController extends Controller
@@ -16,7 +17,9 @@ class ExpenseController extends Controller
      */
     public function index(): JsonResponse
     {
-        $expeses = Expense::paginate();
+        $expeses = Cache::remember('expenses.paginated', now()->addMinutes(60), function() {
+            return Expense::paginate();
+        });
 
         return response()->json($expeses);
     }
@@ -37,7 +40,10 @@ class ExpenseController extends Controller
      */
     public function show(Expense $expense): JsonResponse
     {
-        return response()->json($expense);
+        $cachedExpense = Cache::remember("expense.{$expense->id}", now()->addMinutes(60), function() use ($expense) {
+            return $expense;
+        });
+        return response()->json($cachedExpense);
     }
 
     /**

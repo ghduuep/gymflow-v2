@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Task;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\StoreTaskRequest;
+use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\UpdateTaskRequest;
 
 
@@ -17,7 +17,9 @@ class TaskController extends Controller
      */
     public function index(): JsonResponse
     {
-        $tasks = Task::paginate();
+        $tasks = Cache::remember('tasks.paginated', now()->addMinutes(60), function() {
+            return Task::paginate();
+        });
 
         return response()->json($tasks);
     }
@@ -39,7 +41,10 @@ class TaskController extends Controller
      */
     public function show(Task $task): JsonResponse
     {
-        return response->json($task);
+        $cachedTask = Cache::remember("task.{$task->id}", now()->addMinutes(60), function() use ($task) {
+            return $task;
+        });
+        return response()->json($cachedTask);
     }
 
     /**
@@ -55,7 +60,7 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Task $task): JsonResponse
+    public function destroy(Task $task)
     {
         $task->delete();
         return response()->noContent();

@@ -3,24 +3,25 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\Subscription;
 use App\Http\Requests\StoreSubscriptionRequest;
 use App\Http\Requests\UpdateSubscriptionRequest;
-use App\Enums\SubscriptionStatus;
-use Carbon\Carbon;
-use App\Models\Plan;
-
+use Illuminate\Support\Facades\Cache;
+use App\Services\SubscriptionService;
 
 class SubscriptionController extends Controller
 {
+    public function __construct(private SubscriptionService $subscriptionService)
+    {}
     /**
      * Display a listing of the resource.
      */
     public function index(): JsonResponse
     {
-        $subscriptions = Subscription::with(['student', 'plan'])->paginate();
+        $subscriptions = Cache::remember('subscriptions.paginated', now()->addMinutes(60), function() {
+            return Subscription::with(['student', 'plan'])->paginate();
+        });
 
         return response()->json($subscriptions);
     }
@@ -39,7 +40,10 @@ class SubscriptionController extends Controller
      */
     public function show(Subscription $subscription): JsonResponse
     {
-        return response()->json($subscription)->load(['student', 'plan']);
+        $cachedSubscription = Cache::remember("subscription.{$subscription->id}", now()->addMinutes(60), function() use ($subscription) {
+            return $subscription->load(['student', 'plan']);
+        });
+        return response()->json($cachedSubscription);
     }
 
     /**
@@ -58,7 +62,7 @@ class SubscriptionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Subscription $subscription): JsonResponse
+    public function destroy(Subscription $subscription)
     {
         $subscription->delete();
         return response()->noContent();

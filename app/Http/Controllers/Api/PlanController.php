@@ -8,6 +8,7 @@ use App\Models\Plan;
 use App\Http\Requests\StorePlanRequest;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UpdatePlanRequest;
+use Illuminate\Support\Facades\Cache;
 
 class PlanController extends Controller
 {
@@ -16,7 +17,9 @@ class PlanController extends Controller
      */
     public function index(): JsonResponse
     {
-        $plans = Plan::paginate();
+        $plans = Cache::remember('plans.paginated', now()->addMinutes(60), function() {
+            return Plan::paginate();
+        });
 
         return response()->json($plans);
     }
@@ -38,7 +41,10 @@ class PlanController extends Controller
      */
     public function show(Plan $plan): JsonResponse
     {
-        return response()->json($plan);
+        $cachedPlan = Cache::remember("plan.{$plan->id}", now()->addMinutes(60), function() use ($plan) {
+            return $plan;
+        });
+        return response()->json($cachedPlan);
     }
 
     /**

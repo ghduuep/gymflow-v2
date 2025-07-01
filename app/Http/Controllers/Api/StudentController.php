@@ -8,7 +8,7 @@ use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use Illuminate\Http\JsonResponse;
-
+use Illuminate\Support\Facades\Cache;
 
 class StudentController extends Controller
 {
@@ -17,7 +17,9 @@ class StudentController extends Controller
      */
     public function index(): JsonResponse
     {
-        $students = Student::paginate();
+        $students = Cache::remember('students.paginated', now()->addMinutes(60), function() {
+            return Student::paginate();
+        });
 
         return response()->json($students);
     }
@@ -39,7 +41,10 @@ class StudentController extends Controller
      */
     public function show(Student $student): JsonResponse
     {
-        return response()->json($student);
+        $cachedStudent = Cache::remember("student.{$student->id}", now()->addMinutes(60), function() use ($student) {
+            return $student;
+        });
+        return response()->json($cachedStudent);
     }
 
     /**
