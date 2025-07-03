@@ -4,16 +4,16 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use App\Enums\ExpenseCategory;
+use App\Enums\RevenueCategory;
 
-class UpdateExpenseRequest extends FormRequest
+class UpdateRevenueRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -23,15 +23,14 @@ class UpdateExpenseRequest extends FormRequest
      */
     public function rules(): array
     {
-        $expenseId = $this->route('expense')->id;
+        $expenseId = $this->route('revenue')->id;
 
         return [
-            'name' => ['sometimes|required|string|min:2|max:30', Rule::unique('expenses', 'name')->ignore($expenseId)],
+            'name' => ['sometimes|required|string|min:2|max:30', Rule::unique('revenues', 'name')->ignore($expenseId)],
             'description' => 'sometimes|nullable|string|max:50',
-            'category' => ['sometimes|required', Rule::enum(ExpenseCategory::class)],
             'value' => 'sometimes|required|numeric',
-            'paid' => 'sometimes|required|boolean',
-            'date' => 'sometimes|required|date|'
+            'category' => ['sometimes|required', Rule::enum(RevenueCategory::class)],
+            'date' => 'sometimes|required|date',
         ];
     }
 }

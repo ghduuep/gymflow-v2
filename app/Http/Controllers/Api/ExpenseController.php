@@ -17,11 +17,11 @@ class ExpenseController extends Controller
      */
     public function index(): JsonResponse
     {
-        $expeses = Cache::remember('expenses.paginated', now()->addMinutes(60), function() {
+        $expenses = Cache::remember('expenses.paginated', now()->addMinutes(60), function() {
             return Expense::paginate();
         });
 
-        return response()->json($expeses);
+        return response()->json($expenses);
     }
 
     /**
