@@ -2,10 +2,16 @@
 
 namespace App\Services;
 
+use App\Models\Plan;
+use App\Models\Subscription;
+use App\Models\Expense;
+use App\Enums\SubscriptionStatus;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class FinancialReportService
 {
-    public function getFinancialReport(): array
+    public static function getFinancialReport(): array
     {
         $monthlyRevenue = Subscription::where('status', SubscriptionStatus::ACTIVE)
         ->join('plans', 'subscriptions.plan_id', '=', 'plans.id')

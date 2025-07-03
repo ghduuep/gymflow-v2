@@ -7,7 +7,6 @@ use App\Models\Task;
 use App\Models\Expense;
 use App\Models\Subscription;
 use App\Enums\SubscriptionStatus;
-use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class DashboardService

@@ -42,4 +42,8 @@ return [
         'success_page' => env('URL_SUCCESS_NEXTJS'),
         'cancel_page' => env('URL_CANCEL_NEXTJS'),
     ],
+
+    'gemini' => [
+        'key' =>env('GEMINI_APY_KEY'),
+    ],
 ];

@@ -9,7 +9,7 @@ use App\Models\Task;
 
 class GeneralReportService
 {
-    public function getGeneralReport(): array
+    public static function getGeneralReport(): array
     {
         $allStudents = Student::all()->count();
         $allSubscriptions = Subscription::all()->count();
