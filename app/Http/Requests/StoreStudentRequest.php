@@ -26,7 +26,6 @@ class StoreStudentRequest extends FormRequest
             'cpf' => 'required|string|size:11',
             'phone' => 'required|string|regex:/^\d{10,11}$/',
             'email' => 'nullable|email|max:255|unique:students,email',
-            'address' => 'nullable|array|',
             'address.street' => 'nullable|string|max:255',
             'address.number' => 'nullable|string|max:10',
             'address.neighborhood' => 'nullable|string|max:255',

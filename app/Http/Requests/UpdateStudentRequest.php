@@ -36,7 +36,6 @@ class UpdateStudentRequest extends FormRequest
             ],
             'phone' => 'sometimes|nullable|string|regex:/^\d{10,11}$/',
             'email' => 'sometimes|nullable|email|max:255',
-            'address' => 'sometimes|array',
             'adress.street' => 'sometimes|nullable|string|max:255',
             'adress.number' => 'sometimes|nullable|string|max:10',
             'adress.neighborhood' => 'sometimes|nullable|string|max:255',

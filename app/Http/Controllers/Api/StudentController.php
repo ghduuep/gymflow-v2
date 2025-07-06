@@ -17,8 +17,8 @@ class StudentController extends Controller
      */
     public function index(): JsonResponse
     {
-        $students = Cache::remember('students.paginated', now()->addMinutes(60), function() {
-            return Student::paginate();
+        $students = Cache::remember('students_with_address.paginated', now()->addMinutes(60), function() {
+            return Student::with('address')->paginate();
         });
 
         return response()->json($students);
@@ -32,6 +32,7 @@ class StudentController extends Controller
         $validatedData = $request->validated();
 
         $student = Student::create($validatedData);
+        $student->address()->create($validatedData['address']);
 
         return response()->json($student, 201);
     }
@@ -41,8 +42,8 @@ class StudentController extends Controller
      */
     public function show(Student $student): JsonResponse
     {
-        $cachedStudent = Cache::remember("student.{$student->id}", now()->addMinutes(60), function() use ($student) {
-            return $student;
+        $cachedStudent = Cache::remember("student_with_address.{$student->id}", now()->addMinutes(60), function() use ($student) {
+            return $student->load('address');
         });
         return response()->json($cachedStudent);
     }
@@ -55,6 +56,7 @@ class StudentController extends Controller
         $validatedData = $request -> validated();
 
         $student -> update($validatedData);
+        $student->address()->update($validatedData['address']);
 
         return response()->json($student);
     }

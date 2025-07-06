@@ -18,7 +18,6 @@ class Address extends Model
         'complement',
         'city',
         'state',
-        'country',
         'zip_code',
     ];
 
