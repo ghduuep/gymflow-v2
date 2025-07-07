@@ -11,7 +11,6 @@ class Address extends Model
     use HasFactory;
 
     protected $fillable = [
-        'student_id',
         'street',
         'number',
         'neighborhood',
@@ -21,7 +20,7 @@ class Address extends Model
         'zip_code',
     ];
 
-    public function students(): BelongsTo
+    public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);
     }

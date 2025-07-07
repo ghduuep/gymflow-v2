@@ -32,7 +32,7 @@ class StoreStudentRequest extends FormRequest
             'address.complement' => 'nullable|string',
             'address.city' => 'nullable|string|max:255',
             'address.state' => 'nullable|string|size:2',
-            'address.zipcode' => ['nullable|string|regex:^\d{5}-\d{3}$'],
+            'address.zip_code' => 'nullable|string',
             'birth_date' => 'nullable|date|before:today',
             'active' => 'nullable|boolean',
         ];

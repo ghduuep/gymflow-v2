@@ -22,6 +22,8 @@ class Student extends Model
         'active',
     ];
 
+    protected $with = ['address'];
+
     public function subscriptions(): hasMany
     {
         return $this->hasMany(Subscription::class);

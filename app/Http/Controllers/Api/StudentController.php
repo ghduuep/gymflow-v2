@@ -8,6 +8,7 @@ use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 
 class StudentController extends Controller
@@ -31,9 +32,13 @@ class StudentController extends Controller
     {
         $validatedData = $request->validated();
 
-        $student = Student::create($validatedData);
-        $student->address()->create($validatedData['address']);
+        $student = Student::create(Arr::except($validatedData, ['address']));
+        
+        if(isset($validatedData['address'])) {
+            $student->address()->create($validatedData['address']);
+        }
 
+        $student->load('address');
         return response()->json($student, 201);
     }
 
@@ -55,10 +60,16 @@ class StudentController extends Controller
     {
         $validatedData = $request -> validated();
 
-        $student -> update($validatedData);
-        $student->address()->update($validatedData['address']);
+        $student->update(Arr::except($validatedData, ['address']));
 
-        return response()->json($student);
+        if(isset($validatedData['address'])) {
+            $student->address()->updateOrCreate(
+                ['student_id' => $student->id()],
+                $validatedData['address']
+            );
+        }
+
+        return response()->json($student->load('address'));
     }
 
     /**
