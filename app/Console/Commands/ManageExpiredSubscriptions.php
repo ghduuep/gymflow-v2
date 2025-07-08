@@ -6,6 +6,8 @@ use App\Enums\SubscriptionStatus;
 use App\Models\Subscription;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use App\Models\Student;
+use App\Notifications\RenewalPaymentNotification;
 
 class ManageExpiredSubscriptions extends Command
 {

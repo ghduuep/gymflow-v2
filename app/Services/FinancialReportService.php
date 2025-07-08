@@ -23,7 +23,7 @@ class FinancialReportService
 
         $monthlyNetProfit = $monthlyRevenue - $monthlyExpenses;
 
-        $profitMargin = ($monthlyNetProfit / $monthlyRevenue) * 100;
+        $profitMargin = (($monthlyNetProfit / $monthlyRevenue) * 100) ? ($monthlyRevenue != 0) : 0;
 
         $expensesByCategory = Expense::groupby('category')->sum('value');
 

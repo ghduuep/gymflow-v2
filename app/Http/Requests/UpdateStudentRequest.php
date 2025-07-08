@@ -29,7 +29,6 @@ class UpdateStudentRequest extends FormRequest
             'cpf' => [
                 'sometimes',
                 'nullable',
-                'required',
                 'string',
                 Rule::unique('students', 'cpf')->ignore($studentId),
                 'size:11',

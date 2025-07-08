@@ -64,7 +64,7 @@ class StudentController extends Controller
 
         if(isset($validatedData['address'])) {
             $student->address()->updateOrCreate(
-                ['student_id' => $student->id()],
+                ['student_id' => $student->id],
                 $validatedData['address']
             );
         }

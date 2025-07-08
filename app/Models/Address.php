@@ -10,6 +10,8 @@ class Address extends Model
 {
     use HasFactory;
 
+    protected $touches = ['student'];
+
     protected $fillable = [
         'street',
         'number',

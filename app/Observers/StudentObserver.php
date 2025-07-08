@@ -12,7 +12,7 @@ class StudentObserver
      */
     public function created(Student $student): void
     {
-        Cache::forget('students.paginated');
+        Cache::forget('students_with_address.paginated');
     }
 
     /**
@@ -20,8 +20,8 @@ class StudentObserver
      */
     public function updated(Student $student): void
     {
-        Cache::forget('students.paginated');
-        Cache::forget("students.{$student->id}");
+        Cache::forget('students_with_address.paginated');
+        Cache::forget("students_with_address.{$student->id}");
     }
 
     /**
@@ -29,8 +29,8 @@ class StudentObserver
      */
     public function deleted(Student $student): void
     {
-        Cache::forget('students.paginated');
-        Cache::forget("students.{$student->id}");
+        Cache::forget('students_with_address.paginated');
+        Cache::forget("students_with_address.{$student->id}");
     }
 
     /**
