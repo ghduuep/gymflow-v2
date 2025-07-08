@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
+use App\Services\StudentService;
 
 class StudentController extends Controller
 {
+
+    public function __construct(private StudentService $studentService)
+    {}
+
     /**
      * Display a listing of the resource.
      */
@@ -30,15 +34,8 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request): JsonResponse
     {
-        $validatedData = $request->validated();
+        $student = $this->studentService->createStudent($request->validated());
 
-        $student = Student::create(Arr::except($validatedData, ['address']));
-        
-        if(isset($validatedData['address'])) {
-            $student->address()->create($validatedData['address']);
-        }
-
-        $student->load('address');
         return response()->json($student, 201);
     }
 
@@ -58,18 +55,8 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student): JsonResponse
     {
-        $validatedData = $request -> validated();
-
-        $student->update(Arr::except($validatedData, ['address']));
-
-        if(isset($validatedData['address'])) {
-            $student->address()->updateOrCreate(
-                ['student_id' => $student->id],
-                $validatedData['address']
-            );
-        }
-
-        return response()->json($student->load('address'));
+        $updatedStudent = $this->studentService->updateStudent($request->validated(), $student);
+        return response()->json($updatedStudent);
     }
 
     /**
