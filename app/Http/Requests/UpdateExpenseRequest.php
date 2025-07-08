@@ -26,12 +26,12 @@ class UpdateExpenseRequest extends FormRequest
         $expenseId = $this->route('expense')->id;
 
         return [
-            'name' => ['sometimes|required|string|min:2|max:30', Rule::unique('expenses', 'name')->ignore($expenseId)],
+            'name' => ['sometimes|string|min:2|max:30', Rule::unique('expenses', 'name')->ignore($expenseId)],
             'description' => 'sometimes|nullable|string|max:50',
-            'category' => ['sometimes|required', Rule::enum(ExpenseCategory::class)],
-            'value' => 'sometimes|required|numeric',
-            'paid' => 'sometimes|required|boolean',
-            'date' => 'sometimes|required|date|'
+            'category' => ['sometimes', Rule::enum(ExpenseCategory::class)],
+            'value' => 'sometimes|numeric',
+            'paid' => 'sometimes|boolean',
+            'date' => 'sometimes|date|'
         ];
     }
 }

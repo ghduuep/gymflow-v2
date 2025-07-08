@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use App\Enums\TaskPriority;
 
 class UpdateTaskRequest extends FormRequest
 {
@@ -24,11 +26,11 @@ class UpdateTaskRequest extends FormRequest
         $taskId = $this->route('task')->id;
 
         return [
-            'name' => ['sometimes','required','string','min:2','max:30', Rule::unique('tasks', 'name')->ignore($taskId)],
-            'description' => 'sometimes|required|string|max:50',
-            'completed' => 'sometimes|required|boolean',
-            'priority' => ['sometimes|required', Rule::enum(TaskPriority::class)],
-            'active' => 'sometimes|required|boolean',
+            'name' => ['sometimes','string','min:2','max:30', Rule::unique('tasks', 'name')->ignore($taskId)],
+            'description' => 'sometimes|string|max:50',
+            'completed' => 'sometimes|boolean',
+            'priority' => ['sometimes', Rule::enum(TaskPriority::class)],
+            'active' => 'sometimes|boolean',
         ];
     }
 }

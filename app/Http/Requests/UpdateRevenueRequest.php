@@ -26,11 +26,11 @@ class UpdateRevenueRequest extends FormRequest
         $expenseId = $this->route('revenue')->id;
 
         return [
-            'name' => ['sometimes|required|string|min:2|max:30', Rule::unique('revenues', 'name')->ignore($expenseId)],
+            'name' => ['sometimes|string|min:2|max:30', Rule::unique('revenues', 'name')->ignore($expenseId)],
             'description' => 'sometimes|nullable|string|max:50',
-            'value' => 'sometimes|required|numeric',
-            'category' => ['sometimes|required', Rule::enum(RevenueCategory::class)],
-            'date' => 'sometimes|required|date',
+            'value' => 'sometimes|numeric',
+            'category' => ['sometimes', Rule::enum(RevenueCategory::class)],
+            'date' => 'sometimes|date',
         ];
     }
 }

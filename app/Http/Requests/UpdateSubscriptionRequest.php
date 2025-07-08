@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use App\Enums\SubscriptionStatus;
 
 class UpdateSubscriptionRequest extends FormRequest
 {
@@ -22,9 +24,9 @@ class UpdateSubscriptionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => ['sometimes', 'required', Rule::enum(SubscriptionStatus::class)],
-            'start_date' => 'sometimes|required|date|',
-            'end_date' => 'sometimes|required|date|after_or_equal:start_date',
+            'status' => ['sometimes', Rule::enum(SubscriptionStatus::class)],
+            'start_date' => 'sometimes|date|',
+            'end_date' => 'sometimes|date|after_or_equal:start_date',
         ];
     }
 }

@@ -27,16 +27,15 @@ class UpdatePlanRequest extends FormRequest
         return [
             'name' => [
                 'sometimes',
-                'required',
                 'string',
                 Rule::unique('plans', 'name')->ignore($planId),
                 'min:2',
                 'max:30'
             ],
-            'description' => 'sometimes|required|string|max:50',
-            'price' => 'sometimes|required|numeric',
-            'duration_months' => 'sometimes|required|integer|min:1',
-            'active' => 'sometimes|required|boolean',           
+            'description' => 'sometimes|string|max:50',
+            'price' => 'sometimes|numeric',
+            'duration_months' => 'sometimes|integer|min:1',
+            'active' => 'sometimes|boolean',           
         ];
     }
 }
