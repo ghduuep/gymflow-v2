@@ -8,11 +8,13 @@ use App\Models\Expense;
 use App\Models\Subscription;
 use App\Enums\SubscriptionStatus;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class DashboardService
 {
     public function getDashboardData(): array
     {
+        return Cache::remember('dashboard_data', now()->addMinutes(60), function () {
         $activeStudents = Student::where('active', true)->count();
         $activeSubscription = Subscription::where('status', SubscriptionStatus::ACTIVE)->count();
         $monthlyRevenue = Subscription::where('status', SubscriptionStatus::ACTIVE)
@@ -38,5 +40,6 @@ class DashboardService
             'monthly_net_profit' => (float) $monthlyNetProfit,
             'pendind_tasks' => $pendingTasks,
         ];
-    }
+        });
+}
 }

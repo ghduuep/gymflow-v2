@@ -13,6 +13,9 @@ class SubscriptionObserver
     public function created(Subscription $subscription): void
     {
         Cache::forget('subscriptions.paginated');
+        Cache::forget('financial_report');
+        Cache::forget('dashboard_data');
+        Cache::forget('general_report');
     }
 
     /**
@@ -22,6 +25,9 @@ class SubscriptionObserver
     {
         Cache::forget('subscriptions.paginated');
         Cache::forget("subscriptions.{$subscription->id}");
+        Cache::forget('financial_report');
+        Cache::forget('dashboard_data');
+        Cache::forget('general_report');
     }
 
     /**
@@ -31,6 +37,9 @@ class SubscriptionObserver
     {
         Cache::forget('subscriptions.paginated');
         Cache::forget("subscriptions.{$subscription->id}");
+        Cache::forget('financial_report');
+        Cache::forget('dashboard_data');
+        Cache::forget('general_report');
     }
 
     /**

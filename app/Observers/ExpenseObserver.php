@@ -13,6 +13,8 @@ class ExpenseObserver
     public function created(Expense $expense): void
     {
         Cache::forget('expenses.paginated');
+        Cache::forget('financial_report');
+        Cache::forget('dashboard_data');
     }
 
     /**
@@ -22,6 +24,8 @@ class ExpenseObserver
     {
         Cache::forget('expenses.paginated');
         Cache::forget("expenses.{$expense->id}");
+        Cache::forget('financial_report');
+        Cache::forget('dashboard_data');
     }
 
     /**
@@ -31,6 +35,8 @@ class ExpenseObserver
     {
         Cache::forget('expenses.paginated');
         Cache::forget("expenses.{$expense->id}");
+        Cache::forget('financial_report');
+        Cache::forget('dashboard_data');
     }
 
     /**

@@ -13,7 +13,9 @@ class RevenueObserver
      */
     public function created(Revenue $revenue): void
     {
-        Cache::forget('students.paginated');
+        Cache::forget('revenues.paginated');
+        Cache::forget('financial_report');
+        Cache::forget('dashboard_data');
     }
 
     /**
@@ -21,8 +23,10 @@ class RevenueObserver
      */
     public function updated(Revenue $revenue): void
     {
-        Cache::forget('students.paginated');
-        Cache::forget("students.{$revenue->id}");
+        Cache::forget('revenues.paginated');
+        Cache::forget("revenues.{$revenue->id}");
+        Cache::forget('financial_report');
+        Cache::forget('dashboard_data');
     }
 
     /**
@@ -30,8 +34,10 @@ class RevenueObserver
      */
     public function deleted(Revenue $revenue): void
     {
-        Cache::forget('students.paginated');
-        Cache::forget("students.{$revenue->id}");
+        Cache::forget('revenues.paginated');
+        Cache::forget("revenues.{$revenue->id}");
+        Cache::forget('financial_report');
+        Cache::forget('dashboard_data');
     }
 
     /**

@@ -13,6 +13,9 @@ class PlanObserver
     public function created(Plan $plan): void
     {
         Cache::forget('plans.paginated');
+        Cache::forget('financial_report');
+        Cache::forget('dashboard_data');
+        Cache::forget('general_report');
     }
 
     /**
@@ -22,6 +25,9 @@ class PlanObserver
     {
         Cache::forget('plans.paginated');
         Cache::forget("plans.{$plan->id}");
+        Cache::forget('financial_report');
+        Cache::forget('dashboard_data');
+        Cache::forget('general_report');
     }
 
     /**
@@ -31,6 +37,9 @@ class PlanObserver
     {
         Cache::forget('plans.paginated');
         Cache::forget("plans.{$plan->id}");
+        Cache::forget('financial_report');
+        Cache::forget('dashboard_data');
+        Cache::forget('general_report');
     }
 
     /**

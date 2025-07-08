@@ -8,11 +8,13 @@ use App\Models\Expense;
 use App\Enums\SubscriptionStatus;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class FinancialReportService
 {
     public static function getFinancialReport(): array
     {
+        return Cache::remember('financial_report', now()->addMinutes(60), function () {
         $monthlyRevenue = Subscription::where('status', SubscriptionStatus::ACTIVE)
         ->join('plans', 'subscriptions.plan_id', '=', 'plans.id')
         ->sum('plans.price');
@@ -50,6 +52,6 @@ class FinancialReportService
             'expenses_by_category' => $expensesByCategory,
             'revenue_by_plan' => $revenueByPlan,
         ];
-    }
-    
+    });
+}
 }

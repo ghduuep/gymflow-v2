@@ -13,6 +13,7 @@ class StudentObserver
     public function created(Student $student): void
     {
         Cache::forget('students_with_address.paginated');
+        Cache::forget('general_report');
     }
 
     /**
@@ -22,6 +23,7 @@ class StudentObserver
     {
         Cache::forget('students_with_address.paginated');
         Cache::forget("students_with_address.{$student->id}");
+        Cache::forget('general_report');
     }
 
     /**
@@ -31,6 +33,7 @@ class StudentObserver
     {
         Cache::forget('students_with_address.paginated');
         Cache::forget("students_with_address.{$student->id}");
+        Cache::forget('general_report');
     }
 
     /**

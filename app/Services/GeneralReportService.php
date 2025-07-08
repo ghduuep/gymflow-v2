@@ -6,11 +6,13 @@ use App\Models\Plan;
 use App\Models\Student;
 use App\Models\Subscription;
 use App\Models\Task;
+use Illuminate\Support\Facades\Cache;
 
 class GeneralReportService
 {
     public static function getGeneralReport(): array
     {
+        return Cache::remember('general_report', now()->addMinutes(60), function () {
         $allStudents = Student::all()->count();
         $allSubscriptions = Subscription::all()->count();
         $allPlans = Plan::all()->count();
@@ -33,5 +35,6 @@ class GeneralReportService
             'tasks_by_completed' => $tasksByCompleted,
             'most_popular_plans' => $mostPopularPlans,
         ];
-    }
+    });
+}
 }

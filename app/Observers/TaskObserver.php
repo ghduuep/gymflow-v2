@@ -13,6 +13,9 @@ class TaskObserver
     public function created(Task $task): void
     {
         Cache::forget('tasks.paginated');
+        Cache::forget('financial_report');
+        Cache::forget('dashboard_data');
+        Cache::forget('general_report');
     }
 
     /**
@@ -22,6 +25,9 @@ class TaskObserver
     {
         Cache::forget('tasks.paginated');
         Cache::forget("tasks.{$task->id}");
+        Cache::forget('financial_report');
+        Cache::forget('dashboard_data');
+        Cache::forget('general_report');
     }
 
     /**
@@ -31,6 +37,9 @@ class TaskObserver
     {
         Cache::forget('tasks.paginated');
         Cache::forget("tasks.{$task->id}");
+        Cache::forget('financial_report');
+        Cache::forget('dashboard_data');
+        Cache::forget('general_report');
     }
 
     /**
