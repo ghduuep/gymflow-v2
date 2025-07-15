@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Enums\SubscriptionStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Subscription extends Model
 {
@@ -29,9 +31,9 @@ class Subscription extends Model
         'end_date'
     ];
 
-    public function student(): BelongsTo
+    public function students(): BelongsToMany
     {
-        return $this->belongsTo(Student::class);
+        return $this->belongsToMany(Student::class, 'student_subscription');
     }
 
     public function plan(): BelongsTo

@@ -24,6 +24,8 @@ class UpdateSubscriptionRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'students_ids' => 'sometimes|array',
+            'students_ids.*' => 'required|exists:students, id',
             'status' => ['sometimes', Rule::enum(SubscriptionStatus::class)],
             'start_date' => 'sometimes|date|',
             'end_date' => 'sometimes|date|after_or_equal:start_date',

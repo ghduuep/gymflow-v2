@@ -51,12 +51,8 @@ class SubscriptionController extends Controller
      */
     public function update(UpdateSubscriptionRequest $request, Subscription $subscription): JsonResponse
     {
-        $validatedData = $request->validated();
-        $subscription->update($validatedData);
-
-        $subscription->load(['student', 'plan']);
-
-        return response()->json($subscription);
+        $updatedSubscription = $this->subscriptionService->updateSubscription($request->validated(), $subscription);
+        return response()->json($updatedSubscription);
     }
 
     /**

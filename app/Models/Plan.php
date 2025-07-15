@@ -21,6 +21,7 @@ class Plan extends Model
         'description',
         'price',
         'duration_months',
+        'max_students',
         'active',
     ];
     
